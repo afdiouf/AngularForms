@@ -1,8 +1,10 @@
-# syntax=docker/dockerfile:1
-
-FROM node:18-alpine
+# stage 1
+FROM node:latest as node
 WORKDIR /app
 COPY . .
-RUN npm install --production
-CMD ["node", "src/index.js"]
-EXPOSE 3000
+RUN npm install
+RUN npm run build --prod
+
+# stage 2
+FROM nginx:alpine
+COPY --from=node /app/dist/angular-forms /usr/share/nginx/html
