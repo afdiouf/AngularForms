@@ -90,18 +90,22 @@ export class RegisterComponent implements OnInit {
   }
 
   public fillFormData(): void {
-    // Avec setValue, on est obligé de remplir tous les champs du model mais avec patchValue
+    // Avec setValue, on est obligé de remplir tous les champs du model mais pas avec patchValue
     this.registerForm.patchValue({
       firstName: 'Maman',
       lastName: 'Diouf',
-      email: 'maman@gmail.sn',
+      // email: 'maman@gmail.sn',
+      'emailGroup': { 
+        email: 'maman@gmail.sn',
+        confirmEmail: 'maman@gmail.sn'
+      },
       phone: '+221773687432',
       rating: 4,
       notification: 'email',
       sendCatalog: true
     })
   }
-
+  
   public setNotificationSetting(method: string): void {
     const phoneControl = this.registerForm.get('phone');
     if (method === 'text') {
